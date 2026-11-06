@@ -1,0 +1,5 @@
+modelo,tipo,parametros,sensibilidad,especificidad,auc,cumple,elegido
+Línea base (todo normal),linea base,0,0.0,1.0,0.5,False,False
+Conv1D,convolucional,5857,0.9927884615384616,0.9948630136986302,0.9986169652265542,True,True
+TCN,convolucional,14593,0.9879807692307693,0.9948630136986302,0.9990038856691255,True,False
+Bi-GRU,recurrente,6785,0.9903846153846154,0.9982876712328768,0.9988186577976816,True,False
