@@ -11,7 +11,9 @@ Este repositorio contiene dos proyectos de clasificación. Ambos se desarrollaro
 
 ## Video
 
-**[Ver el video: dos clientes, un método (1:43)](video/examen_p2_dos_clientes.mp4)**
+**[Ver el video en YouTube: dos clientes, un método (1:43)](https://youtu.be/kxrpZ-PDz_c)**
+
+También está en este repositorio: [`video/examen_p2_dos_clientes.mp4`](video/examen_p2_dos_clientes.mp4).
 
 Cuenta los dos proyectos como una propuesta para cada cliente: el problema, los modelos que comparamos, la elección con validación, la prueba abierta una sola vez y los límites de cada modelo. Las cifras salen de los cuadernos y de los resultados de este repositorio. No tiene narración: el texto va en pantalla.
 
