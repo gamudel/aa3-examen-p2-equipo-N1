@@ -9,6 +9,12 @@ Este repositorio contiene dos proyectos de clasificación. Ambos se desarrollaro
 | [`ecg/`](ecg/) | CardioRitmo | Detectar latidos anormales | Conv1D | Cumple |
 | [`resenas/`](resenas/) | Compra Fácil Bajío | Detectar reseñas negativas | BETO ajustado | Cumple |
 
+## Video
+
+**[Ver el video: dos clientes, un método (1:43)](video/examen_p2_dos_clientes.mp4)**
+
+Cuenta los dos proyectos como una propuesta para cada cliente: el problema, los modelos que comparamos, la elección con validación, la prueba abierta una sola vez y los límites de cada modelo. Las cifras salen de los cuadernos y de los resultados de este repositorio. No tiene narración: el texto va en pantalla.
+
 ## Modelo de reseñas
 
 El modelo BETO pesa 420 MB y supera el límite de 100 MB por archivo de GitHub, por lo que `model.safetensors` se publica aparte:
@@ -72,6 +78,8 @@ resenas/
 ├── modelos_resena_beto/     Configuración y tokenizador (el modelo está en Drive)
 ├── resultados_resenas.csv   Resultados en la prueba del cliente
 └── entrega_resenas.zip      Paquete de entrega
+video/
+└── examen_p2_dos_clientes.mp4  Video que explica los dos proyectos
 ```
 
 ## Reproducir los resultados
