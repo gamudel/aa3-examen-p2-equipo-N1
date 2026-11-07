@@ -1,0 +1,9 @@
+streamlit>=1.55
+keras>=3.13
+h5py>=3.10
+torch>=2.2
+transformers>=5.3
+pandas>=2.2
+numpy>=2.0
+plotly>=6.0
+scikit-learn>=1.4

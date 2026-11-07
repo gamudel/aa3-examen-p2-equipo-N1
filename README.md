@@ -23,12 +23,12 @@ El modelo BETO pesa 420 MB y supera el límite de 100 MB por archivo de GitHub, 
 
 **[Descargar la carpeta del modelo desde Google Drive](https://drive.google.com/drive/folders/1kN9eWLKd9fQhWvdKGPZ7JwqujOL6fKuw?usp=sharing)**
 
-Para usarlo, coloca los archivos descargados en `resenas/modelos_resena_beto/`. Esa carpeta debe quedar con `config.json`, `model.safetensors`, `tokenizer.json` y `tokenizer_config.json`. Después se carga con `from_pretrained`:
+Para usarlo, coloca los archivos descargados en `resenas/modelo/modelo_resenas_beto/`. Esa carpeta debe quedar con `config.json`, `model.safetensors`, `tokenizer.json` y `tokenizer_config.json`. Después se carga con `from_pretrained`:
 
 ```python
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-ruta = "resenas/modelos_resena_beto"
+ruta = "resenas/modelo/modelo_resenas_beto"
 tokenizador = AutoTokenizer.from_pretrained(ruta)
 modelo = AutoModelForSequenceClassification.from_pretrained(ruta)
 ```
@@ -65,21 +65,56 @@ En este modelo, la clase 1 significa reseña **negativa**.
 
 **Limitaciones principales:** los datos son de Amazon España y el cliente es mexicano. El modelo no detectó ninguna de las 4 frases sarcásticas probadas. Además, la precisión baja cuando las reseñas negativas son menos frecuentes que en la prueba.
 
+## PMV: app web local (`pmv/`)
+
+Una app de Streamlit con una pestaña por cliente. Clasifica con los modelos guardados en `modelo/` y el umbral de 0.5, y corre en CPU.
+
+- **CardioRitmo:** usa 200 latidos de ejemplo o un CSV de 140 puntos por latido, y muestra los marcados de mayor a menor probabilidad, con su trazo.
+- **Compra Fácil Bajío:** recibe reseñas escritas o en CSV, y arma la fila de atención con las marcadas como negativas.
+
+| CardioRitmo | Compra Fácil Bajío |
+|---|---|
+| ![Pestaña de CardioRitmo](pmv/capturas/cardioritmo.png) | ![Pestaña de Compra Fácil Bajío](pmv/capturas/compra_facil_bajio.png) |
+
+Para correrla desde la raíz del repositorio:
+
+1. Descarga `model.safetensors` de la [carpeta de Drive](https://drive.google.com/drive/folders/1kN9eWLKd9fQhWvdKGPZ7JwqujOL6fKuw?usp=sharing) y colócalo en `resenas/modelo/modelo_resenas_beto/`. Sin ese archivo, la pestaña de latidos funciona y la de reseñas muestra este mismo enlace.
+2. Instala las dependencias y abre la app:
+
+```bash
+pip install -r pmv/requirements.txt
+```
+
+```bash
+streamlit run pmv/app.py
+```
+
+Comprobamos que la app usa los mismos modelos: con el código de `pmv/modelos.py`, el modelo de latidos reproduce los resultados de `resultados_ecg.csv` y BETO reproduce las probabilidades de las 16 frases de prueba, con una diferencia máxima de 0.0005.
+
+**Límites:** es una demostración local. Los botones de decisión solo duran la sesión, y no se guarda ni se envía nada. Los latidos de ejemplo son de la prueba del cliente, salen del mismo paciente y no son consecutivos, por lo que no equivalen a un registro de 24 horas. Las limitaciones de cada modelo siguen siendo las descritas arriba.
+
 ## Estructura del repositorio
 
 ```text
 ecg/
 ├── DEV_ecg.ipynb            Cuaderno de desarrollo, con salidas
 ├── folleto_ecg.pdf          Folleto para el cliente
-├── modelo_ecg.keras         Modelo elegido
+├── modelo/                  Modelo elegido (modelo_ecg.keras)
 ├── resultados_ecg.csv       Resultados en la prueba del cliente
 └── entrega_ecg.zip          Paquete de entrega
 resenas/
 ├── DEV_resenas.ipynb        Cuaderno de desarrollo, con salidas
 ├── folleto_resenas.pdf      Folleto para el cliente
-├── modelos_resena_beto/     Configuración y tokenizador (el modelo está en Drive)
+├── modelo/                  modelo_resenas_beto/: configuración y tokenizador (los pesos están en Drive)
 ├── resultados_resenas.csv   Resultados en la prueba del cliente
 └── entrega_resenas.zip      Paquete de entrega
+pmv/
+├── app.py                   Interfaz de Streamlit
+├── modelos.py               Carga de los modelos e inferencia
+├── generar_ejemplos.py      Crea datos/latidos_ejemplo.csv
+├── requirements.txt         Dependencias de la app
+├── datos/                   Latidos de ejemplo
+└── capturas/                Capturas de la app
 video/
 └── examen_p2_dos_clientes.mp4  Video que explica los dos proyectos
 ```
